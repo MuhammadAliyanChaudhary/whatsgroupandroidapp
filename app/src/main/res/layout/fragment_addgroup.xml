@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.addgroup.AddGroupFragment">
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.3"
+        android:orientation="vertical"
+        >
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Your Groups To Promote"
+        android:textColor="@color/primary_main"
+        android:layout_marginHorizontal="40dp"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        />
+
+
+
+
+        <LinearLayout
+            android:id="@+id/Upload_photo"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginTop="1dp"
+            >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_group"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            android:src="@drawable/ic_image_24"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/image_background"
+            />
+
+            <TextView
+                android:id="@+id/upload_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload Photo"
+                android:layout_gravity="center"
+                android:textColor="#5C5C5C"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                />
+
+
+        </LinearLayout>
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="16dp"
+            android:hint="Group Name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            >
+
+            <EditText
+                android:id="@+id/group_name_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="17"
+                android:inputType="text"
+                android:textSize="14dp"
+                />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="16dp"
+            android:hint="Paste your group link"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            >
+
+            <EditText
+                android:id="@+id/group_link_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textSize="14dp"
+                />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="16dp"
+            android:hint="Select Group Category"
+            android:forceDarkAllowed="false"
+            android:layout_marginBottom="2dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            >
+            <AutoCompleteTextView
+                android:id="@+id/filed_exposed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+    <Button
+        android:id="@+id/btn_addGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Group"
+        android:padding="15dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:textAllCaps="true"
+        android:textSize="13dp"
+        />
+
+
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:adSize="LARGE_BANNER"
+            app:adUnitId="@string/banner_ad"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            >
+
+        </com.google.android.gms.ads.AdView>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</ScrollView>

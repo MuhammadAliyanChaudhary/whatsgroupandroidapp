@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Whatsgrouplinks</string>
+    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+
+    <string name="rate_app">Notifications</string>
+    <string name="share_app">Notifications</string>
+    <string name="TermsAndPolicies">Notifications</string>
+
+
+    <string name="ads_id">ca-app-pub-4321563827378021~9567719861</string>
+    <string name="banner_ad">ca-app-pub-4321563827378021/8533344952</string>
+
+
+
+</resources>

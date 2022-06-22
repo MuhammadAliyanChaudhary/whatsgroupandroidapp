@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_groups">
+
+    <fragment
+        android:id="@+id/navigation_groups"
+        android:name="com.macdev.whatsgrouplinks.ui.groups.GroupsFragment"
+        android:label="Groups"
+        tools:layout="@layout/fragment_groups" />
+
+    <fragment
+        android:id="@+id/navigation_categories"
+        android:name="com.macdev.whatsgrouplinks.ui.categories.CategoriesFragment"
+        android:label="Categories"
+        tools:layout="@layout/fragment_categories" />
+
+    <fragment
+        android:id="@+id/navigation_addgroup"
+        android:name="com.macdev.whatsgrouplinks.ui.addgroup.AddGroupFragment"
+        android:label="Add Group"
+        tools:layout="@layout/fragment_addgroup" />
+</navigation>
