@@ -36,6 +36,7 @@
         app:adSize="BANNER"
         app:adUnitId="@string/banner_ad"
         android:layout_gravity="center"
+
         >
 
     </com.google.android.gms.ads.AdView>

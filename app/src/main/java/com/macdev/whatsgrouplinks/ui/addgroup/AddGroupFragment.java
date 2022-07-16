@@ -142,12 +142,14 @@ public class AddGroupFragment extends Fragment {
             @Override
             public void onAdClicked() {
                 // Code to be executed when the user clicks on an ad.
+                super.onAdClicked();
             }
 
             @Override
             public void onAdClosed() {
                 // Code to be executed when the user is about to return
                 // to the app after tapping on an ad.
+                super.onAdClosed();
             }
         });
 

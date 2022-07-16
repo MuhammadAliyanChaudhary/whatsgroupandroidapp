@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -83,23 +84,29 @@ public class GroupsFragment extends Fragment {
             @Override
             public void onAdFailedToLoad(LoadAdError adError) {
                 // Code to be executed when an ad request fails.
+
+                super.onAdFailedToLoad(adError);
+                mAdView.loadAd(adRequest);
             }
 
             @Override
             public void onAdOpened() {
                 // Code to be executed when an ad opens an overlay that
                 // covers the screen.
+                super.onAdOpened();
             }
 
             @Override
             public void onAdClicked() {
                 // Code to be executed when the user clicks on an ad.
+                super.onAdClicked();
             }
 
             @Override
             public void onAdClosed() {
                 // Code to be executed when the user is about to return
                 // to the app after tapping on an ad.
+                super.onAdClosed();
             }
         });
 
@@ -109,6 +116,8 @@ public class GroupsFragment extends Fragment {
         recycleGroups.setHasFixedSize(true);
         recycleGroups.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        AdapterGroups adapter_unNotify = new AdapterGroups(listGroups, getActivity().getApplicationContext());
+
 
         listGroups = new ArrayList<>();
 
@@ -117,6 +126,8 @@ public class GroupsFragment extends Fragment {
             @Override
             public void onRefresh() {
 
+                    listGroups.clear();
+                    adapter_unNotify.notifyDataSetChanged();
 
                     fetchGroups();
 
