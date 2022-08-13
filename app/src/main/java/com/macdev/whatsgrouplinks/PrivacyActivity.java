@@ -5,7 +5,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class PrivacyActivity extends AppCompatActivity {
     WebView webViewPrivacy;
@@ -26,7 +28,15 @@ public class PrivacyActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         webViewPrivacy.getSettings().setJavaScriptEnabled(true);
-        webViewPrivacy.loadUrl("file:///android_asset/privacy.html");
+        webViewPrivacy.loadUrl("https://pages.flycricket.io/whats-group-links/privacy.html");
+        webViewPrivacy.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                view.loadUrl("https://pages.flycricket.io/whats-group-links/privacy.html");
+
+                return false;
+            }
+        });
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

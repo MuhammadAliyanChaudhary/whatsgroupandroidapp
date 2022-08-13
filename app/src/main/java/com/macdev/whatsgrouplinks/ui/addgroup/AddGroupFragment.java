@@ -62,6 +62,7 @@ public class AddGroupFragment extends Fragment {
     LinearLayout uploadImageBox;
     String matchingWhatsappLink;
     String spinnerValue = null;
+    AutoCompleteTextView autoCompleteTextView;
 
     AdView mAdView;
 
@@ -170,7 +171,7 @@ public class AddGroupFragment extends Fragment {
                 dropDownItems
         );
 
-        AutoCompleteTextView autoCompleteTextView = root.findViewById(R.id.filed_exposed);
+       autoCompleteTextView = root.findViewById(R.id.filed_exposed);
 
         autoCompleteTextView.setAdapter(itemAdapter);
 
@@ -205,6 +206,7 @@ public class AddGroupFragment extends Fragment {
                 // validate the empty fields
                 validate();
 
+
             }
         });
 
@@ -232,10 +234,6 @@ public class AddGroupFragment extends Fragment {
             Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
 
         }
-
-
-
-
         else if (groupName.getText().toString().isEmpty()) {
 
             Toast.makeText(getActivity(), "Enter Group Name", Toast.LENGTH_SHORT).show();
@@ -279,21 +277,16 @@ public class AddGroupFragment extends Fragment {
 
 
         if (path != null) {
-
             final StorageReference reference = storage.getReference().child("images/" + UUID.randomUUID().toString());
-
-
             reference.putFile(path).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-
                     reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
 
 
-                            addGroupToDb(groupLink.getText().toString().trim(), groupName.getText().toString(), spinnerValue, uri.toString());
+                            addGroupToDb(groupLink.getText().toString().trim(), groupName.getText().toString(), spinnerValue, path.toString());
 
 
                         }
@@ -319,10 +312,13 @@ public class AddGroupFragment extends Fragment {
             });
 
 
-        } else {
-            progressDialog.dismiss();
+        }else{
             Toast.makeText(getActivity(), "Please Upload Image", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
         }
+
+
+
 
 
     }
@@ -330,13 +326,14 @@ public class AddGroupFragment extends Fragment {
 
     // Function for uploading group data in database document
 
-    private void addGroupToDb(String groupLink, String groupName, String category, String downloadLink) {
+    private void addGroupToDb(String link, String name, String category, String downloadLink) {
+
 
 
         Date date = new Date();
         Map<String, Object> userMap = new HashMap<>();
-        userMap.put("GroupLink", groupLink);
-        userMap.put("GroupName", groupName);
+        userMap.put("GroupLink", link);
+        userMap.put("GroupName", name);
         userMap.put("GroupCategory", category);
         userMap.put("GroupImage", downloadLink);
         userMap.put("CreatedDate", date);
@@ -349,7 +346,11 @@ public class AddGroupFragment extends Fragment {
 
                         if (task.isSuccessful()) {
                             reloadFragment();
+                           groupLink.getText().clear();
+                           groupName.getText().clear();
+                           autoCompleteTextView.getText().clear();
                             progressDialog.dismiss();
+
                             Toast.makeText(getActivity(), "Group Added successfully", Toast.LENGTH_LONG).show();
 
                         } else {

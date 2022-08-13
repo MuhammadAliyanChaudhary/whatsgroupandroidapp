@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,7 +51,9 @@ public class GroupsFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseStorage storage;
     AdView mAdView;
+    ProgressBar progressBarGroups;
     SwipeRefreshLayout swipeRefreshLayout;
+    AdapterGroups adapter_unNotify;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +67,7 @@ public class GroupsFragment extends Fragment {
         storage = FirebaseStorage.getInstance();
 
         swipeRefreshLayout = root.findViewById(R.id.swipeToRefresh);
+        progressBarGroups = root.findViewById(R.id.progressBarGroups);
 
 
         mAdView = root.findViewById(R.id.adView);
@@ -116,10 +121,28 @@ public class GroupsFragment extends Fragment {
         recycleGroups.setHasFixedSize(true);
         recycleGroups.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        AdapterGroups adapter_unNotify = new AdapterGroups(listGroups, getActivity().getApplicationContext());
-
-
         listGroups = new ArrayList<>();
+        adapter_unNotify = new AdapterGroups(listGroups, getActivity().getApplicationContext());
+
+
+
+
+
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.primary_main));
+
+
+
+//        swipeRefreshLayout.post(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//
+//
+//                fetchGroups();
+//
+//
+//            }
+//        });
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -139,7 +162,9 @@ public class GroupsFragment extends Fragment {
 
 
 
-            fetchGroups();
+      fetchGroups();
+
+
 
 
 
@@ -148,12 +173,11 @@ public class GroupsFragment extends Fragment {
 
     private void fetchGroups() {
 
-//        ProgressDialog progressDialog = new ProgressDialog(getActivity());
-//        progressDialog.setTitle("Loading...");
-//        progressDialog.setMessage("Loading groups for you");
-//        progressDialog.show();
+
+
 
         swipeRefreshLayout.setRefreshing(true);
+        progressBarGroups.setVisibility(View.VISIBLE);
 
         db.collection("Groups").orderBy("CreatedDate", Query.Direction.DESCENDING).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -178,15 +202,15 @@ public class GroupsFragment extends Fragment {
 
                             }
 
-                            AdapterGroups adapter_unNotify = new AdapterGroups(listGroups, getActivity().getApplicationContext());
+
                             recycleGroups.setAdapter(adapter_unNotify);
                             swipeRefreshLayout.setRefreshing(false);
-//                            progressDialog.dismiss();
+                            progressBarGroups.setVisibility(View.GONE);
 
 
                         } else {
                             swipeRefreshLayout.setRefreshing(false);
-//                            progressDialog.dismiss();
+                            progressBarGroups.setVisibility(View.GONE);
 
                             Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
 
@@ -204,5 +228,24 @@ public class GroupsFragment extends Fragment {
         binding = null;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
 
+
+
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onPause() {
+
+
+        if (swipeRefreshLayout!=null) {
+            swipeRefreshLayout.setRefreshing(false);
+            swipeRefreshLayout.destroyDrawingCache();
+            swipeRefreshLayout.clearAnimation();
+        }
+
+        super.onPause();
+    }
 }

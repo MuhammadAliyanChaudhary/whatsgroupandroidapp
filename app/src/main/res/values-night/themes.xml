@@ -20,12 +20,11 @@
 
 
 
-        <item name="android:windowDisablePreview">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-
-
-
+       w
         <!-- android:textColorSecondary is the color of the menu overflow icon (three vertical dots) -->
         <item name="android:textColorSecondary">@color/white</item>
     </style>
+
+
+
 </resources>
