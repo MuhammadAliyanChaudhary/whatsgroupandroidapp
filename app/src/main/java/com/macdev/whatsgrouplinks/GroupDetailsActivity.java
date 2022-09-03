@@ -4,6 +4,7 @@ package com.macdev.whatsgrouplinks;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -115,6 +116,7 @@ public class GroupDetailsActivity extends AppCompatActivity {
         groupLink.setText(getIntent().getStringExtra("groupLink"));
 
 
+
         Glide.with(GroupDetailsActivity.this)
                 .load(imageLink) // image url
                 .placeholder(R.drawable.ic_image_24) // any placeholder to load at start
@@ -142,11 +144,19 @@ public class GroupDetailsActivity extends AppCompatActivity {
         joinGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(groupUrlCopy));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
+
+                try{
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(groupUrlCopy));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+
+                }catch (ActivityNotFoundException ex){
+                    Toast.makeText(GroupDetailsActivity.this, ""+ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
     }

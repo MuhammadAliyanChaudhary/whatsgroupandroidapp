@@ -120,34 +120,46 @@ public class BottomNavigationActivity extends AppCompatActivity {
     }
 
 
-    public void rateApp()
-    {
-        try
-        {
-            Intent rateIntent = rateIntentForUrl("market://details"+getPackageName());
-            startActivity(rateIntent);
+
+    public void rateApp(){
+        try{
+            startActivity(new Intent("android.intent.action.VIEW", Uri.parse("market://details?id="+getPackageName())));
         }
-        catch (ActivityNotFoundException e)
-        {
-            Intent rateIntent = rateIntentForUrl("https://play.google.com/store/apps/details"+getPackageName());
-            startActivity(rateIntent);
+        catch (ActivityNotFoundException e){
+            startActivity(new Intent("android.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id="+getPackageName())));
         }
     }
 
-    private Intent rateIntentForUrl(String url)
-    {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("%s?id=%s", url, getPackageName())));
-        int flags = Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
-        if (Build.VERSION.SDK_INT >= 21)
-        {
-            flags |= Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
-        }
-        else
-        {
-            //noinspection deprecation
-            flags |= Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
-        }
-        intent.addFlags(flags);
-        return intent;
-    }
+
+
+//    public void rateApp()
+//    {
+//        try
+//        {
+//            Intent rateIntent = rateIntentForUrl("market://details"+getPackageName());
+//            startActivity(rateIntent);
+//        }
+//        catch (ActivityNotFoundException e)
+//        {
+//            Intent rateIntent = rateIntentForUrl("https://play.google.com/store/apps/details"+getPackageName());
+//            startActivity(rateIntent);
+//        }
+//    }
+
+//    private Intent rateIntentForUrl(String url)
+//    {
+//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("%s?id=%s", url, getPackageName())));
+//        int flags = Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
+//        if (Build.VERSION.SDK_INT >= 21)
+//        {
+//            flags |= Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
+//        }
+//        else
+//        {
+//            //noinspection deprecation
+//            flags |= Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
+//        }
+//        intent.addFlags(flags);
+//        return intent;
+//    }
 }

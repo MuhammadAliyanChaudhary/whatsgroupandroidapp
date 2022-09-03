@@ -286,7 +286,7 @@ public class AddGroupFragment extends Fragment {
                         public void onSuccess(Uri uri) {
 
 
-                            addGroupToDb(groupLink.getText().toString().trim(), groupName.getText().toString(), spinnerValue, path.toString());
+                            addGroupToDb(groupLink.getText().toString().trim(), groupName.getText().toString(), spinnerValue, uri.toString());
 
 
                         }

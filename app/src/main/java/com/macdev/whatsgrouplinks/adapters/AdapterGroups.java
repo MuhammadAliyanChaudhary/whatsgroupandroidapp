@@ -2,6 +2,7 @@ package com.macdev.whatsgrouplinks.adapters;
 
 
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -66,9 +67,10 @@ public class AdapterGroups extends RecyclerView.Adapter<AdapterGroups.ViewHolder
  //       holder.groupImage.setImageURI(modelGroups.get(position).getGroupImage());
 
         String url = modelGroups.get(position).getGroupImage();
+
         Glide.with(context)
                 .load(url) // image url
-                .placeholder(R.drawable.ic_image_24) // any placeholder to load at start
+                .placeholder(R.mipmap.ic_launcher) // any placeholder to load at start
                 .error(R.drawable.ic_image_24)  // any image in case of error
                 .override(100, 100) // resizing
                 .centerCrop()
@@ -107,11 +109,19 @@ public class AdapterGroups extends RecyclerView.Adapter<AdapterGroups.ViewHolder
                groupUrlDb = currentGroup.getGroupLink();
 
 
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(groupUrlDb));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                if (intent.resolveActivity(context.getPackageManager()) != null) {
-                    context.startActivity(intent);
+
+                try{
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(groupUrlDb));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if (intent.resolveActivity(context.getPackageManager()) != null) {
+                        context.startActivity(intent);
+                    }
+
+                }catch (ActivityNotFoundException ex){
+                    Toast.makeText(context, ""+ex.getMessage(), Toast.LENGTH_SHORT).show();
+
                 }
+
 //                Uri groupUrl = Uri.parse(groupUrlDb);
 //                Intent intent = new Intent(Intent.ACTION_SENDTO,groupUrl);
 //                view.getContext().startActivity(intent);

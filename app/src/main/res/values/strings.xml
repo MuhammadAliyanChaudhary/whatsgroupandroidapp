@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Whatsgrouplinks</string>
+    <string name="app_name">Whats Group Links</string>
     <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
